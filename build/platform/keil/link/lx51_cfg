@@ -1,0 +1,65 @@
+/*------------------------------------------------------------------------
+|                            FILE DESCRIPTION                            |
+------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------
+|  - File name     : lx51_cfg
+|  - Author        : zevorn
+|  - Update date   : 2021.10.26
+|  - Copyright(C)  : 2021-2021 zevorn. All rights reserved.
+------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------
+|                            COPYRIGHT NOTICE                            |
+------------------------------------------------------------------------*/
+/*
+ * Copyright (C) 2021, zevorn (zevorn@yeah.net)
+
+ * This file is part of Ant Real Time Operating System.
+
+ * Ant Real Time Operating System is free software: you can redistribute 
+ * it and/or modify it under the terms of the Apache-2.0 License.
+
+ * Ant Real Time Operating System is distributed in the hope that it will 
+ * be useful,but WITHOUT ANY WARRANTY; without even the implied warranty 
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+ * Apache-2.0 License License for more details.
+
+ * You should have received a copy of the Apache-2.0 License.Ant Real Time
+ * Operating System. If not, see <http://www.apache.org/licenses/>.
+**/
+/*------------------------------------------------------------------------
+|                              LINK CONTROL                              |
+------------------------------------------------------------------------*/
+PRINT("..\..\output\antos.map")
+/*------------------------------------------------------------------------
+|                              MICS CONTROLS                             |
+------------------------------------------------------------------------*/
+REMOVEUNUSED
+/*------------------------------------------------------------------------
+|                                OVERLAY                                 |
+------------------------------------------------------------------------*/
+/* The RAM override technology of the Keil-C51 compiler results in functions
+ * that do not call logical relationships and may have identical addresses
+ * for local variables within them. 
+ * This can affect the use of local variables within threaded functions in RTOS. 
+ * The problems described above can be avoided by writing the related function 
+ * names in the format below.
+ */
+OVERLAY
+(
+	/* kernel func, Do not modify or delete! */
+    *! os_thread_schedule,
+    *! os_rdylist_get_max_prio,
+    *! os_update_list,
+	/* kernel func, Do not modify or delete! */
+	
+	/* Add your own function name */
+	*! thread1_entry,
+	*! thread2_entry,
+	*! thread3_entry
+	
+	/* Last position, don't add ","! */
+)
+
+/*-----------------------------------------------------------------------
+|                   END OF FLIE.  (C) COPYRIGHT zevorn                  |
+-----------------------------------------------------------------------*/
